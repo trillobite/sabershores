@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <title>Saber Shores</title>
+            <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+            <script type='text/javascript' src='scripts/jsonHTML.min.js'></script>
+            <script type='text/javascript' src='scripts/views/pages/home.js'></script>
+            <script type='text/javascript' src='scripts/views/pages/jewelry.js'></script>
+            <script type='text/javascript' src='scripts/views/pages/leather.js'></script>
+            <script type='text/javascript' src='scripts/views/pages/pens.js'></script>
+            <script type='text/javascript' src='scripts/views/pages/stamps.js'></script>
+            <script type='text/javascript' src='scripts/views/template.js'></script>
+            <script type='text/javascript' src='scripts/views/nav.js'></script>
+            <script type='text/javascript' src='scripts/views/siteDescription.js'></script>
+            <script>
+                main.addChild(nav);
+                $(document).ready(function() { //starts everything!
+                    main.appendTo('body').state.done(function() {
+                        var tmp = arrdb.get('content');
+                        tmp.addChild(home().render());
+                        tmp.refresh();
+                    }); //main called from template.js
+                });
+            </script>
+    </head>
+    <body></body>
+</html>
