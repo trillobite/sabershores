@@ -49,7 +49,7 @@ const postData = (input, collectionName, callbackFunc) => {
     });
 };
 
-//deletes data from the sabershores mongo db.
+//deletes data from the sabershores mongodb.
 const deleteData = (query, collectionName, callbackFunc) => {
     mongo.connect(mongoURL, (err, db) => {
         if(err) {
@@ -58,6 +58,24 @@ const deleteData = (query, collectionName, callbackFunc) => {
         }
         let dbo = db.db("saberShores");
         dbo.collection(collectionName).removeOne(query, (err, result) => {
+            if(err) {
+                callbackFunc(false);
+            } else {
+                callbackFunc(result);
+            }
+        });
+    });
+};
+
+//updates data to the sabershores mongodb.
+const patchData = (query, update, collectionName, callbackFunc) => {
+    mongo.connect(mongoURL, (err, db) => {
+        if(err) {
+            callbackFunc(false);
+            return; //exit if error.
+        }
+        let dbo = db.db("saberShores");
+        dbo.collection(collectionName).updateOne(query, update, (err, result) => {
             if(err) {
                 callbackFunc(false);
             } else {
@@ -81,6 +99,19 @@ router.get('/pens/:name?', (req, res) => {
 router.post('/pens', jsonParser, (req, res) => {
     console.log(req.body);
     postData(req.body, "pens", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.patch('/pens/:id?', jsonParser, (req, res) => {
+    if(!req.params.id) {
+        res.send(false);
+    }
+    const id = req.params.id;
+    let query = {
+        "_id": id,
+    };
+    patchData(query, req.body, "pens", (returned) => {
         res.send(returned ? true : false);
     });
 });
@@ -110,6 +141,19 @@ router.post('/stamps', jsonParser, (req, res) => {
     });
 });
 
+router.patch('/stamps/:id?', jsonParser, (req, res) => {
+    if(!req.params.id) {
+        res.send(false);
+    }
+    const id = req.params.id;
+    let query = {
+        "_id": id,
+    };
+    patchData(query, req.body, "stamps", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
 router.delete('/stamps', jsonParser, (req, res) => {
     console.log(req.body);
     deleteData(req.body, "stamps", (returned) => {
@@ -131,6 +175,19 @@ router.get('/leather/:name?', (req, res) => {
 router.post('/leather', jsonParser, (req, res) => {
     console.log(req.body);
     postData(req.body, "leather", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.patch('/leather/:id?', jsonParser, (req, res) => {
+    if(!req.params.id) {
+        res.send(false);
+    }
+    const id = req.params.id;
+    let query = {
+        "_id": id,
+    };
+    patchData(query, req.body, "leather", (returned) => {
         res.send(returned ? true : false);
     });
 });
@@ -160,6 +217,19 @@ router.post('/jewelry', jsonParser, (req, res) => {
     });
 });
 
+router.patch('/jewelry/:id?', jsonParser, (req, res) => {
+    if(!req.params.id) {
+        res.send(false);
+    }
+    const id = req.params.id;
+    let query = {
+        "_id": id,
+    };
+    patchData(query, req.body, "jewelry", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
 router.delete('/jewelry', jsonParser, (req, res) => {
     console.log(req.body);
     deleteData(req.body, "jewelry", (returned) => {
@@ -185,6 +255,19 @@ router.post('/reviews', jsonParser, (req, res) => {
     });
 });
 
+router.patch('/reviews/:id?', jsonParser, (req, res) => {
+    if(!req.params.id) {
+        res.send(false);
+    }
+    const id = req.params.id;
+    let query = {
+        "_id": id,
+    };
+    patchData(query, req.body, "reviews", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
 router.delete('/reviews', jsonParser, (req, res) => {
     console.log(req.body);
     deleteData(req.body, "reviews", (returned) => {
@@ -206,6 +289,19 @@ router.get('/images/:imageID?', (req, res) => {
 router.post('/images', jsonParser, (req, res) => {
     console.log(req.body);
     postData(req.body, "images", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.patch('/images/:id?', jsonParser, (req, res) => {
+    if(!req.params.id) {
+        res.send(false);
+    }
+    const id = req.params.id;
+    let query = {
+        "_id": id,
+    };
+    patchData(query, req.body, "images", (returned) => {
         res.send(returned ? true : false);
     });
 });
