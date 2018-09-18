@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 
 const jsonParser = bodyParser.json();
 
+//gets data from the sabershores mongodb.
 const getData = (query, collectionName, callbackFunc) => {
     mongo.connect(mongoURL, (err, db) => {
         if(err) {
@@ -30,6 +31,7 @@ const getData = (query, collectionName, callbackFunc) => {
     });
 };
 
+//adds data to the sabershores mongodb.
 const postData = (input, collectionName, callbackFunc) => {
     mongo.connect(mongoURL, (err, db) => {
         if(err) {
@@ -38,6 +40,24 @@ const postData = (input, collectionName, callbackFunc) => {
         }
         let dbo = db.db("saberShores");
         dbo.collection(collectionName).insertOne(input, (err, result) => {
+            if(err) {
+                callbackFunc(false);
+            } else {
+                callbackFunc(result);
+            }
+        });
+    });
+};
+
+//deletes data from the sabershores mongo db.
+const deleteData = (query, collectionName, callbackFunc) => {
+    mongo.connect(mongoURL, (err, db) => {
+        if(err) {
+            callbackFunc(false);
+            return; //exit if error.
+        }
+        let dbo = db.db("saberShores");
+        dbo.collection(collectionName).removeOne(query, (err, result) => {
             if(err) {
                 callbackFunc(false);
             } else {
@@ -65,6 +85,13 @@ router.post('/pens', jsonParser, (req, res) => {
     });
 });
 
+router.delete('/pens', jsonParser, (req, res) => {
+    console.log(req.body);
+    deleteData(req.body, "pens", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
 router.get('/stamps/:name?', (req, res) => {
     const name = req.params.name;
     let query = {};
@@ -79,6 +106,13 @@ router.get('/stamps/:name?', (req, res) => {
 router.post('/stamps', jsonParser, (req, res) => {
     console.log(req.body);
     postData(req.body, "stamps", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.delete('/stamps', jsonParser, (req, res) => {
+    console.log(req.body);
+    deleteData(req.body, "stamps", (returned) => {
         res.send(returned ? true : false);
     });
 });
@@ -101,6 +135,13 @@ router.post('/leather', jsonParser, (req, res) => {
     });
 });
 
+router.delete('/leather', jsonParser, (req, res) => {
+    console.log(req.body);
+    deleteData(req.body, "leather", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
 router.get('/jewelry/:name?', (req, res) => {
     const name = req.params.name;
     let query = {};
@@ -119,7 +160,64 @@ router.post('/jewelry', jsonParser, (req, res) => {
     });
 });
 
-app.use("/products", router);
+router.delete('/jewelry', jsonParser, (req, res) => {
+    console.log(req.body);
+    deleteData(req.body, "jewelry", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.get('/reviews/:productID?', (req, res) => {
+    const productID = req.params.productID;
+    let query = {};
+    if(name) {
+        query.productID = productID;
+    }
+    getData(query, "reviews", (returned) => {
+        res.send(JSON.stringify(returned));
+    });
+});
+
+router.post('/reviews', jsonParser, (req, res) => {
+    console.log(req.body);
+    postData(req.body, "reviews", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.delete('/reviews', jsonParser, (req, res) => {
+    console.log(req.body);
+    deleteData(req.body, "reviews", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.get('/images/:imageID?', (req, res) => {
+    const imageID = req.params.imageID;
+    let query = {};
+    if(name) {
+        query.imageID = imageID;
+    }
+    getData(query, "images", (returned) => {
+        res.send(JSON.stringify(returned));
+    });
+});
+
+router.post('/images', jsonParser, (req, res) => {
+    console.log(req.body);
+    postData(req.body, "images", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+router.delete('/images', jsonParser, (req, res) => {
+    console.log(req.body);
+    deleteData(req.body, "images", (returned) => {
+        res.send(returned ? true : false);
+    });
+});
+
+app.use("/api", router);
 
 app.listen(3000, () => {
     console.log("live at port 3000");
