@@ -21,7 +21,7 @@ class Landing {
             class: 'col-lg-8 col-sm-10 col-xs-12',
             text: `Thank you for visiting SaberShores! BinaryOne and SaberShores are
             teaming up to bring you something new. A new store, better prices, more
-            products, and more sellers. We are making aliances and forging a whole new
+            products, and more sellers. We are making alliances and forging a whole new
             platform! Please hold tight, changes are coming soon. Please join our news
             letter, we will let you know when you can start shopping. We will have a
             grand opening sale with limited stock, be the first to hop in!`,
@@ -93,7 +93,7 @@ class Landing {
         });
         let message = $jConstruct('div', {
             
-            text: `Please join our news letter!`,
+            text: `Please join our Newsletter!`,
         }).css({
             //nothing
         });
