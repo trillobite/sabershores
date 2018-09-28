@@ -68,7 +68,7 @@ class Landing {
             "margin": "0 auto",
         });
         row0.addChild(message);
-        row1.addChild(btnPosh).addChild(btnEbay);
+        row1.addChild(btnEbay);
         container.addChild(row0).addChild(row1);
         return container;
     }
