@@ -1,0 +1,43 @@
+<!--
+    Dynamic file downloader tool.
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+        <title>SaberShores!</title>
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.10.2.min.js'></script> <!--MAKE SURE TO INCLUDE JQUERY!!-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script type='text/javascript' src='scripts/jsonHTML.min.js'></script>
+        <script type='text/javascript' src='scripts/backend/crud.js'></script>
+        <script type='text/javascript' src='scripts/landing/landing.js'></script>
+        <script>
+            $(document).ready(() => {
+                let landingPage = new Landing();
+                let page = landingPage.generate();
+                page.appendTo("body");
+            });
+        </script>
+    </head>
+        <body></body>
+</html>
+
+<!--
+            )
+            (
+        )   )
+        (           v1.3.1
+    .---------------------.
+    |        _____        |___      
+    |     .'`_,-._`'.      __ \
+    |    /  ( [ ] )  \    |  ||
+    |   /.-""`( )`""-.\   |  ||
+    |  ' <'```(.)```'> '  | _||
+    |    <'```(.)```'>    |/ _/
+    |     <'``(.)``'>      ./
+    |      <``\_/``>      |
+    |       `'---'`       |
+    \github.com/trillobite/    I like my coffee black,          
+      \_________________/        like my code.
+-->
