@@ -74,7 +74,7 @@ class Landing {
     }
     emailSub () {
         let container = $jConstruct('div', {
-            class: 'col-lg-3 col-sm-3 col-xs-5',
+            class: 'col-lg-12',
         }).css({
             "float": "none",
             "display": "block",
@@ -154,14 +154,23 @@ class Landing {
         return container;
     }
     banner () {
-        let container = $jConstruct('div').css({
-            "width": "100%",
-            "height": "350px",
-            "background-image": 'url("images/sabershoresbanner.jpg")',
-            "background-size": 'cover',
-            "background-position": 'center center',
+        let row0 = $jConstruct('div', {
+            class: "row",
+        }).css({
+            "float": "none",
+            "display": "block",
+            "margin": "0 auto",
         });
-        return container;
+        let banner = $jConstruct('img', {
+            class: "col-lg-10 col-sm-12",
+            src: "images/sabershoresbanner.jpg",
+        }).css({
+            "float": "none",
+            "display": "block",
+            "margin": "0 auto",
+        });
+        row0.addChild(banner);
+        return row0;
     }
     generate () {
         let container = $jConstruct('div').css({
