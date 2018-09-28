@@ -6,7 +6,7 @@
 */
 
 let crud = {
-    url: "http://localhost:3000/api",
+    url: "http://178.128.176.202:3000/api",
     get: (collection, dta, callback) => {
         let restfulCall = dta ? `${crud.url}/${collection}/${dta}?` : `${crud.url}/${collection}`;
         $.ajax(restfulCall, {
