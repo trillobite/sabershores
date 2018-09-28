@@ -96,7 +96,7 @@ class Landing {
             "float": "none",
             "display": "block",
             "margin": "0 auto",
-            "margin-top": "100px",
+            "margin-top": "50px",
             "text-align": "center",
             //"box-shadow": "0px 0px 10px gray", 
         });
@@ -108,13 +108,13 @@ class Landing {
             "display": "block",
             "margin": "0 auto",
         });
-        let message = $jConstruct('div', {
+        /*let message = $jConstruct('div', {
             
             text: `Please join our Newsletter!`,
         }).css({
             //nothing
         });
-        row0.addChild(message);
+        row0.addChild(message);*/
 
         let row1 = $jConstruct('div', {
             class: "row",
@@ -198,8 +198,8 @@ class Landing {
         });
         container.addChild(this.banner());
         container.addChild(this.textbody());
-        container.addChild(this.otherStores());
         container.addChild(this.emailSub());
+        container.addChild(this.otherStores());
         return container;
     }
 }
