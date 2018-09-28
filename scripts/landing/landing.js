@@ -17,21 +17,38 @@
 
 class Landing {
     textbody () {
-        let message = $jConstruct('div', {
-            class: 'col-lg-8 col-sm-10 col-xs-12',
-            text: `Thank you for visiting SaberShores! BinaryOne and SaberShores are
-            teaming up to bring you something new. A new store, better prices, more
-            products, and more sellers. We are making alliances and forging a whole new
-            platform! Please hold tight, changes are coming soon. Please join our news
-            letter, we will let you know when you can start shopping. We will have a
-            grand opening sale with limited stock, be the first to hop in!`,
-        }).css({
+        let msgCss = {
             "float": "none",
             "display": "block",
             "margin": "0 auto",
-            "margin-top": "100px",
-            //"box-shadow": "0px 0px 10px gray", 
-        });
+            "margin-top": "10px",
+            "text-align": "center",
+        }
+        let msg1 = $jConstruct('div', {
+            class: 'col-lg-8 col-sm-10 col-xs-12',
+            text: `Thank you for visiting SaberShores!`
+        }).css(msgCss);
+        let msg2 = $jConstruct('div', {
+            class: 'col-lg-8 col-sm-10 col-xs-12',
+            text: `BinaryOne and SaberShores are teaming up to bring you something HUGE!`,
+        }).css(msgCss);
+        let msg3 = $jConstruct('div', {
+            class: 'col-lg-8 col-sm-10 col-xs-12',
+            text: `We are forging a whole NEW platform with cutting edge products, bigger SALE discounts, and a variety of CRAFTERS!`,
+        }).css(msgCss);
+        let msg4 = $jConstruct('div', {
+            class: 'col-lg-8 col-sm-10 col-xs-12',
+            text: `Hold tight, HUGE changes are coming soon!`,
+        }).css(msgCss);
+        let msg5 = $jConstruct('div', {
+            class: 'col-lg-8 col-sm-10 col-xs-12',
+            text: `Please join our newsletter below for updates 
+            on our extensive new stock, discounts you can use at 
+            our Grand Opening, and much more!`,
+        }).css(msgCss);
+
+        let message = $jConstruct('div');
+        message.addChild(msg1).addChild(msg2).addChild(msg3).addChild(msg4).addChild(msg5);
 
         return message;
     }
