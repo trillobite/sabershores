@@ -89,6 +89,12 @@ class Landing {
         container.addChild(row0).addChild(row1);
         return container;
     }
+    verifyEmail(strEmail) {
+        if(strEmail.indexOf('@') > -1 && strEmail.indexOf('.com') > -1) {
+            return true;
+        }
+        return false;
+    }
     emailSub () {
         let container = $jConstruct('div', {
             class: 'col-lg-12',
@@ -140,27 +146,28 @@ class Landing {
             console.log(emailSubmit.id);
             const thisID = emailSubmit.id;
             let value = $('#'+thisID).val();
-            
-            let sub = {
-                "email": value,
-                "name": "",
-                "type": "newsletter",
-            };
-            console.log(sub);
-            crud.post('emails', sub, (returned) => {
-                console.log(returned);
-                if(returned) {
-                    emailSubmit.type = 'div';
-                    emailSubmit.text = 'Thank You!';
-                    emailSubmit.refresh();
-                    submitBtn.type = 'div';
-                    submitBtn.text = '';
-                    submitBtn.css({
-                        "visible": "false",
-                    });
-                    submitBtn.refresh();
-                }
-            });
+            if(this.verifyEmail(value)) {
+                let sub = {
+                    "email": value,
+                    "name": "",
+                    "type": "newsletter",
+                };
+                console.log(sub);
+                crud.post('emails', sub, (returned) => {
+                    console.log(returned);
+                    if(returned) {
+                        emailSubmit.type = 'div';
+                        emailSubmit.text = 'Thank You!';
+                        emailSubmit.refresh();
+                        submitBtn.type = 'div';
+                        submitBtn.text = '';
+                        submitBtn.css({
+                            "visible": "false",
+                        });
+                        submitBtn.refresh();
+                    }
+                });
+            }
         });
         row1.addChild(emailSubmit);
         row1.addChild(submitBtn);
