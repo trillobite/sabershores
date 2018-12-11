@@ -30,6 +30,33 @@ const checkMongoID = (query) => {
     return query;
 };
 
+//ensure that a hacker cannot insert an admin level account.
+//user can only make an admin level account with an admin account.
+const securepost = (json, role, endpoint) => {
+    console.log({
+        json: json, //not coming in as json, but as a function...
+        role: role,
+        endpoint: endpoint,
+    });
+    if(endpoint == "users" && role != "admin") {
+        if(json.role == "admin"){ //instantly fail it!
+            return false;
+        }
+    }
+    return true;
+};
+
+//ensure that a hacker cannot patch an existing account and make it admin.    
+const securepatch = (json, role, endpoint) => {
+    if(endpoint == "users" && role != "admin") {
+         if(json.role == "admin") {
+            return false; //do not let them get admin!
+        }
+    }
+    return true;
+};
+
+//ensure that a hacker cannot use this API to do anything nefarious.
 const checkPermission = async (role, res, type, collName) => {
     const sendErr = () => { //sends an error if credendials don't match...
         return res.status(403).send({
@@ -198,6 +225,7 @@ router.post('/authenticate', jsonParser, async (req, res) => {
             let user = returned[0];
             const payload = {
                 role: user.role,
+                id: user["_id"],
             };
             var token = jwt.sign(payload, app.get('superSecret'));
 
@@ -290,8 +318,9 @@ router.post('/:collName?', jsonParser, async (req, res) => {
 
     try {
         const permission = await checkPermission(req.decoded.role, res, "POST", collName);
-        console.log("permission:", permission);
-        if (permission) {
+        const secure = securepost(req.body, req.decoded.role, collName);
+        console.log("permission:", permission, secure);
+        if (permission && secure) {
 
             if (!collName) {
                 res.send(false);
@@ -303,6 +332,11 @@ router.post('/:collName?', jsonParser, async (req, res) => {
             } else {
                 res.send(false);
             }
+        } else {
+            return res.status(403).send({
+                success: false,
+                message: "Not enough permissions."
+            });
         }
     } catch (e) {
         return res.status(500).send({
@@ -317,8 +351,9 @@ router.patch('/:collName?/:id?', jsonParser, async (req, res) => {
 
     try {
         const permission = await checkPermission(req.decoded.role, res, "PATCH", req.params.collName);
+        const secure = securepatch(req.body, req.decoded.role, req.params.collName);
         console.log(permission);
-        if (permission) {
+        if (permission && secure) {
             if (!req.params.collName) {
                 res.send(false);
             }
@@ -337,6 +372,11 @@ router.patch('/:collName?/:id?', jsonParser, async (req, res) => {
             } else {
                 res.send(false);
             }
+        } else {
+            return res.status(403).send({
+                success: false,
+                message: "Not enough permissions.",
+            });
         }
     } catch (e) {
         return res.status(500).send({

@@ -16,7 +16,7 @@
 */
 
 class Landing {
-    textbody () {
+    textbody() {
         let msgCss = {
             "float": "none",
             "display": "block",
@@ -90,12 +90,12 @@ class Landing {
         return container;
     }
     verifyEmail(strEmail) {
-        if(strEmail.indexOf('@') > -1 && strEmail.indexOf('.com') > -1) {
+        if (strEmail.indexOf('@') > -1 && strEmail.indexOf('.com') > -1) {
             return true;
         }
         return false;
     }
-    emailSub () {
+    emailSub() {
         let container = $jConstruct('div', {
             class: 'col-lg-12',
         }).css({
@@ -135,7 +135,7 @@ class Landing {
             "float": "none",
         }).event('click', () => {
             const thisID = emailSubmit.id;
-            $("#"+thisID).select();
+            $("#" + thisID).select();
         });
         let submitBtn = $jConstruct('button', {
             text: `submit`,
@@ -145,27 +145,49 @@ class Landing {
         }).event('click', () => {
             console.log(emailSubmit.id);
             const thisID = emailSubmit.id;
-            let value = $('#'+thisID).val();
-            if(this.verifyEmail(value)) {
-                let sub = {
-                    "email": value,
-                    "name": "",
-                    "type": "newsletter",
-                };
-                console.log(sub);
-                crud.post('emails', sub, (returned) => {
-                    console.log(returned);
-                    if(returned) {
-                        emailSubmit.type = 'div';
-                        emailSubmit.text = 'Thank You!';
-                        emailSubmit.refresh();
-                        submitBtn.type = 'div';
-                        submitBtn.text = '';
-                        submitBtn.css({
-                            "visible": "false",
+            let value = $('#' + thisID).val();
+            if (this.verifyEmail(value)) {
+
+                require(["scripts/backend/crud.js"], () => {
+                    //login as saberShoresLanding
+                    authenticate({
+                        usrName: "saberShoresLanding",
+                        password: ""
+                    }).fail((err) => {
+                        alert(err);
+                        console.log(err);
+                    }).done((result) => {
+                        //get token
+                        console.log(result);
+
+                        let sub = { //get newsletter email...
+                            "email": value,
+                            "name": "",
+                            "type": "newsletter",
+                        };
+                        console.log(sub);
+                        crud.post('emails', sub, (returned) => {
+                            console.log(returned);
+
+                            require(["scripts/store.legacy.min.js"], (store) => {
+                                store.clearAll(); //make sure the cookie is cleared...
+
+                                if (returned) {
+                                    alert("Thank you!");
+                                    emailSubmit.type = 'div';
+                                    emailSubmit.text = 'Thank You!';
+                                    emailSubmit.refresh();
+                                    submitBtn.type = 'div';
+                                    submitBtn.text = '';
+                                    submitBtn.css({
+                                        "visible": "false",
+                                    });
+                                    submitBtn.refresh();
+                                }
+                            });
                         });
-                        submitBtn.refresh();
-                    }
+                    });
+
                 });
             }
         });
@@ -177,7 +199,7 @@ class Landing {
 
         return container;
     }
-    banner () {
+    banner() {
         let row0 = $jConstruct('div', {
             class: "row",
         }).css({
@@ -196,7 +218,7 @@ class Landing {
         row0.addChild(banner);
         return row0;
     }
-    generate () {
+    generate() {
         let container = $jConstruct('div').css({
             "font-size": "24px",
             "font-family": 'Alfios',

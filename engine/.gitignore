@@ -71,3 +71,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+# super secret
+config.js
