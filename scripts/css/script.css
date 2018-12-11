@@ -1,0 +1,34 @@
+
+    @font-face {
+        font-family: 'Norwester';
+        src: url('../../resource/norwester.otf');
+    }
+
+    @font-face {
+        font-family: "Roboto";
+        src: url("../../resource/RobotoCondensed-Regular.ttf");
+    }
+
+    body {
+        background-color: white;
+    }
+
+    .link {
+        cursor: pointer;
+        margin-right: 10px;
+        font-family: "Roboto";
+        color: #ffffff;
+    }
+
+    .link:hover {
+        color: #c699ff;
+    }
+
+    .txtBx {
+        font-family: "Roboto";
+        border-radius: 5px;
+        text-align: center;
+        color: #c699ff;
+        height: 50px;
+        width: 300px;
+    }

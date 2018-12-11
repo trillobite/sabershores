@@ -11,23 +11,23 @@ var nav = $jConstruct('div', {
 var index = ["Home", "Pens", "Stamps", "Leather", "Jewelry"];
 var register = [{
         name: "Home",
-        obj: home,
+        obj: "home",
     },
     {
         name: "Pens",
-        obj: pens,
+        obj: "pens",
     }, 
     {
         name: "Stamps",
-        obj: stamps,
+        obj: "stamps",
     }, 
     {
         name: "Leather",
-        obj: leather,
+        obj: "leather",
     },
     {
         name: "Jewelry",
-        obj: jewelry,
+        obj: "jewelry",
     }];
 
 (function() {
@@ -35,12 +35,12 @@ var register = [{
         nav.addChild($jConstruct('div', {
             text: register[i].name,
         }).event('click', function() {
-            var tmp = arrdb.get('content');
+            /* var tmp = arrdb.get('content');
             tmp.children = []; //clear the content area!
             var text = arrdb.get(this.id).text;
             var indx = index.indexOf(text);
             tmp.addChild(register[indx].obj().render());
-            tmp.refresh();
+            tmp.refresh(); */
         }).css({    
             'width': 'inherit',
             'height': '100px',
