@@ -4,24 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>FUZZOLIFY LLC</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="scripts/css/script.css">
-    <script type='text/javascript' src='scripts/require.js'></script>
+    <script data-main="scripts/requireConfig" src='scripts/require.js'></script>
     <script>
-        require(['http://code.jquery.com/jquery-1.10.2.min.js', "scripts/jsonHTML.min.js"], () => {
-            require(["scripts/views/template.js", "scripts/views/pages/home.js"], (main) => {
-                //main.addChild(nav);
+        require(['http://code.jquery.com/jquery-1.10.2.min.js', "jsonHTML.min"], () => {
+            require(["views/template", "views/pages/home"], (main) => {
+                let selectedCanvas = undefined;
+
                 $(document).ready(function () { //starts everything!
-                    main.appendTo('body').state.done(function () {
-                        var tmp = arrdb.get('content');
-                        tmp.addChild(home().render());
-                        tmp.refresh();
-                    }); //main called from template.js
+                    mainTemplate().then((main) => {
+                        main.appendTo('body').state.done(function () {
+                            var tmp = arrdb.get('content');
+                            tmp.addChild(home().render());
+                            tmp.refresh();
+                        }); //main called from template.js
+                    })
                 });
             })
         });
     </script>
 </head>
+
 <body></body>
 
 </html>

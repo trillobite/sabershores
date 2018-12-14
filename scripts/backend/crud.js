@@ -14,7 +14,7 @@ const account = {
 const authenticate = (usrAccount) => {
     let dfd = $.Deferred();
 
-    require(["scripts/store.legacy.min.js"], (store) => {
+    require(["store"], (store) => {
 
         console.log("running authenticate");
         if(!store.get("user") && !usrAccount) { //check to see if there is any way to get a token.
@@ -74,7 +74,7 @@ let crud = {
                 type: "GET",
             });
         };
-        require(["scripts/store.legacy.min.js"], () => {
+        require(["store"], () => {
             const apiKey = store.get("user").token;
             call(apiKey);
         });
@@ -97,7 +97,7 @@ let crud = {
                 type: "POST",
             });
         };
-        require(["scripts/store.legacy.min.js"], () => {
+        require(["store"], () => {
             const apiKey = store.get("user").token;
             call(apiKey);
         });
@@ -120,7 +120,7 @@ let crud = {
                 type: "POST",
             });
         };
-        require(["scripts/store.legacy.min.js"], () => {
+        require(["store"], () => {
             const apiKey = store.get("user").token;
             call(apiKey);
         });
@@ -143,7 +143,7 @@ let crud = {
                 type: "PATCH",
             });
         }
-        require(["scripts/store.legacy.min.js"], () => {
+        require(["store"], () => {
             const apiKey = store.get("user").token;
             call(apiKey);
         });

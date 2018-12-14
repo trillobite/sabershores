@@ -1,11 +1,11 @@
 
-let nav = () => {
+
+let builderNav = () => {
     let dfd = $.Deferred();
-    require(["views/pages/home"], () => {
+    require([""], () => {
 
         var navDiv = $jConstruct('div', {
-            class: 'row',
-            id: "navDiv",
+            class: 'col-sm-2 col-md-1'
             //text: 'nav',
         }).css({
             "margin": "auto",
@@ -16,28 +16,21 @@ let nav = () => {
         });
 
         //name all of the products which will be sold...
-        var index = ["Home", "Account", "Store", "tmp", "tmp", "tmp"];
-        var pages = [{
-            name: "Home",
-            obj: home,
+        var index = ["Store Home", "Templates", "Products", "Category Pages", "tmp", "tmp"];
+        var register = [{
+            name: "Store Home",
+            obj: "home",
         },
         {
-            name: "Account",
+            name: "Templates",
             obj: "pens",
         },
         {
-            name: "Store",
-            obj: (obj, callback) => {
-                require(["views/pages/storeBuilder/storeBuilder"], () => {
-                    storeBuilder().then((builder) => {
-                        obj.addChild(builder.builderContainer);
-                        callback(builder);
-                    });
-                });
-            },
+            name: "Products",
+            obj: "store",
         },
         {
-            name: "tmp",
+            name: "Category Pages",
             obj: "tmp",
         },
         {
@@ -49,39 +42,33 @@ let nav = () => {
             obj: "tmp",
         }];
 
-        for (var i = 0; i < pages.length; i++) {
+        for (var i = 0; i < register.length; i++) {
             navDiv.addChild($jConstruct('div', {
-                text: pages[i].name,
-                class: "link col-sm-2",
+                text: register[i].name,
+                class: "link",
             }).event('click', function () {
                 var tmp = arrdb.get('content');
                 tmp.children = []; //clear the content area!
                 var text = arrdb.get(this.id).text;
                 var indx = index.indexOf(text);
-                console.log({
-                    text: text,
-                    indx: indx,
-                });
-                if (typeof (pages[indx].obj) == "function") {
-                    pages[indx].obj(tmp, (returned) => {
-                        console.log(returned);
-                        tmp.refresh();
-                    });
+                if (typeof (register[index].obj) == "function") {
+                    tmp.addChild(register[indx].obj().render());
                 }
+                tmp.refresh();
             }).css({
-                "margin-right": "0px",
+                //"margin-right": "0px",
                 //"margin": "auto",
                 "text-shadow": "1px 1px 1px black",
                 "background-color": "gray",
                 "border-radius": "5px",
                 "font-size": "20px",
-                //'width': 'inherit',
-                //'height': '100px',
+                'width': 'inherit',
+                'height': '100px',
                 'text-align': 'center',
                 //'border': '1px solid black',
                 "background-size": 'cover',
                 "background-position": 'center center',
-                /*"background-image": (function () {
+                "background-image": (function () {
                     if (typeof (register[i].obj) == "function") {
                         if (register[i].obj().hasOwnProperty("image")) {
                             return `url("${register[i].obj().image}")`;
@@ -89,7 +76,7 @@ let nav = () => {
                             return "";
                         }
                     }
-                })()*/
+                })(),
             }));
         }
         dfd.resolve(navDiv);
@@ -97,4 +84,3 @@ let nav = () => {
 
     return dfd.promise();
 };
-

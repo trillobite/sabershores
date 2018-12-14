@@ -56,7 +56,7 @@ var login = () => {
         text: "Login",
         class: "link",
     }).event("click", () => {
-        require(["scripts/procedures/loginUsr.js"], () => {
+        require(["procedures/loginUsr"], () => {
             //collect all user data, and send to api.
             let obj = {
                 usrName: $("#usrNameTxtBx").val(),
@@ -85,7 +85,7 @@ var login = () => {
         class: "row",
     }).addChild(submit);
 
-    require(["scripts/txtBxClear.js"], () => {
+    require(["txtBxClear"], () => {
         txtBxClear(row1TxtBx, "focus");
         txtBxClear(row2TxtBx, "focus");
     });

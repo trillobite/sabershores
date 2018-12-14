@@ -19,7 +19,7 @@ let loginBtnMutable = (usrName) => {
             //open settings...
             console.log("already logged in!");
         } else {
-            require(["scripts/procedures/loginUsr.js"], () => {
+            require(["procedures/loginUsr"], () => {
                 //collect all user data, and send to api.
                 let obj = {
                     usrName: $("#usrNameTxtBx").val(),

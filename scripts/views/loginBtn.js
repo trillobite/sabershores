@@ -3,7 +3,7 @@ let accounts = () => {
 
     let getUsr = () => {
         let dfd = $.Deferred();
-        require(["scripts/store.legacy.min.js"], (store) => {
+        require(["store"], (store) => {
             let tmp = store.get("user");
             if (tmp) {
                 dfd.resolve(tmp.usrName);
@@ -25,7 +25,7 @@ let accounts = () => {
                 console.log("already logged in!");
             } else {
                 //show the login page...
-                require(["scripts/views/pages/login.js"], () => {
+                require(["views/pages/login"], () => {
                     var tmp = arrdb.get("content");
                     tmp.children = []; //clear the content area!
                     tmp.addChild(login().render());
@@ -46,7 +46,7 @@ let accounts = () => {
     }).event('click', function () {
         getUsr().done((returned) => {
             if (returned) {
-                require(["scripts/store.legacy.min.js"], (store) => {
+                require(["store"], (store) => {
                     store.clearAll(); //logout...
                     loginBtn.text = "Login";
                     signupBtn.text = "Sign Up";
@@ -55,7 +55,7 @@ let accounts = () => {
                 });
             } else {
                 //get the signup script...
-                require(["scripts/views/pages/signup.js"], () => {
+                require(["views/pages/signup"], () => {
                     var tmp = arrdb.get('content');
                     tmp.children = []; //clear the content area!
                     tmp.addChild(signup().render());

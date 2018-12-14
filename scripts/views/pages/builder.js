@@ -1,4 +1,5 @@
-var home = function () {
+
+var builder = function () {
     return {
         image: "",
         render: function () {

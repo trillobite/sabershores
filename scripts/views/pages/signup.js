@@ -123,7 +123,7 @@ var signup = () => {
         text: "Register",
         class: "link",
     }).event("click", () => {
-        require(["scripts/procedures/signupUsr.js"], () => {
+        require(["procedures/signupUsr"], () => {
             //collect all user data, and send to api.
             let obj = {
                 name: {
@@ -150,7 +150,7 @@ var signup = () => {
         class: "row",
     }).addChild(submit);
 
-    require(["scripts/txtBxClear.js"], () => {
+    require(["txtBxClear"], () => {
         txtBxClear(txtBxFrstNm, "focus");
         txtBxClear(txtBxLstNm, "focus");
         txtBxClear(row1TxtBx, "focus");
