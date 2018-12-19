@@ -15,3 +15,6 @@ User must use /api/authenticate
     password: "pass"
 }
 ```
+
+
+project has moved to bit bucket, as we are moving closer to actual production. We plan on releasing more open source code in the future.
